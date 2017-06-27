@@ -425,11 +425,11 @@
         
         NSRange attRange;
         [RangeArray[i] getValue:&attRange];
-        if (attRange.location>range.location) {
-            attRange.location += range.length;
-        }
-        if (range.location == attRange.location && range.length == attRange.length) {
+        if ((range.location == attRange.location && range.length == attRange.length) || (!text.length && range.location == attRange.location-1)) {
         }else{
+            if (attRange.location>range.location) {
+                text.length?(attRange.location += text.length):(attRange.location -= range.length);
+            }
             [_attriString replaceCharactersInRange:attRange withString:textArr[y]];
         }
         y++;
